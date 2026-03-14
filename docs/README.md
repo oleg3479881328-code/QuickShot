@@ -8,7 +8,7 @@ QuickShot is a local-first Chrome extension for area screenshots. It captures a 
 - DOM overlay area selection with smooth drag in any direction.
 - Visible-tab capture + precise crop mapping for high-DPI screens.
 - Immediate clipboard copy after crop.
-- Separate editor window with arrow, text, blur, crop, rectangle, ellipse, undo/redo, save PNG/JPG, and copy again.
+- Inline on-page editor with arrow, text, blur, crop, rectangle, ellipse, undo/redo, save PNG/JPG, and copy again.
 - Persistent settings in `chrome.storage.local`.
 - Capture mode switch: full flow or clipboard-only flow.
 
@@ -18,7 +18,7 @@ QuickShot is a local-first Chrome extension for area screenshots. It captures a 
 - `capture/`: capture pipeline coordinator.
 - `image/`: crop engine.
 - `clipboard/`: clipboard writer shared by content/editor.
-- `editor/`: lightweight canvas editor window.
+- `editor/`: legacy standalone editor files kept in the repo.
 - `popup/`: minimal launcher UI.
 - `options/`: settings page.
 - `utils/`: settings and image helpers.

@@ -29,7 +29,7 @@
 
 6. **Clipboard Engine** (`clipboard/clipboard-engine.js`)
 - Writes image to clipboard through `navigator.clipboard.write`.
-- Shared by page context and editor window.
+- Shared by page capture flow and editor logic.
 
 7. **Inline Editor** (`content/overlay-ui.js`)
 - Runs directly on the page after capture in `Full` mode.
