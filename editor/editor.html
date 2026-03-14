@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QuickShot Editor</title>
+    <link rel="stylesheet" href="editor.css" />
+  </head>
+  <body>
+    <header class="toolbar">
+      <div class="tool-group">
+        <button data-tool="arrow" class="tool is-active tool-icon" title="Arrow" aria-label="Arrow">
+          <svg viewBox="0 0 64 48" aria-hidden="true">
+            <path d="M52 30C40 24 27 23 14 25" />
+            <path d="M16 25C24 19 30 14 36 10" />
+            <path d="M14 25C22 28 28 33 33 38" />
+            <path d="M12 25L26 18L24 31Z" class="tool-fill" />
+          </svg>
+        </button>
+        <button data-tool="text" class="tool tool-icon" title="Text" aria-label="Text">
+          <svg viewBox="0 0 64 48" aria-hidden="true">
+            <path d="M14 13H50" />
+            <path d="M32 13V37" />
+            <path d="M22 37H42" />
+            <path d="M18 18C22 16 27 15 32 15" class="tool-accent" />
+          </svg>
+        </button>
+        <button data-tool="blur" class="tool tool-icon" title="Blur" aria-label="Blur">
+          <svg viewBox="0 0 64 48" aria-hidden="true">
+            <circle cx="20" cy="18" r="5" class="tool-fill tool-soft" />
+            <circle cx="32" cy="16" r="5" class="tool-fill tool-mid" />
+            <circle cx="44" cy="19" r="5" class="tool-fill" />
+            <circle cx="24" cy="30" r="5" class="tool-fill tool-mid" />
+            <circle cx="38" cy="31" r="5" class="tool-fill tool-soft" />
+          </svg>
+        </button>
+        <button data-tool="crop" class="tool tool-icon" title="Crop" aria-label="Crop">
+          <svg viewBox="0 0 64 48" aria-hidden="true">
+            <path d="M20 10V29C20 35 24 39 30 39H47" />
+            <path d="M10 20H34C40 20 44 24 44 30V39" />
+            <path d="M30 9V18" />
+            <path d="M45 24H54" />
+          </svg>
+        </button>
+        <button data-tool="rect" class="tool tool-icon" title="Rectangle" aria-label="Rectangle">
+          <svg viewBox="0 0 64 48" aria-hidden="true">
+            <rect x="15" y="13" width="34" height="22" rx="2" />
+            <path d="M15 13C19 11 24 10 30 10" class="tool-accent" />
+          </svg>
+        </button>
+        <button data-tool="ellipse" class="tool tool-icon" title="Ellipse" aria-label="Ellipse">
+          <svg viewBox="0 0 64 48" aria-hidden="true">
+            <ellipse cx="32" cy="24" rx="18" ry="12" />
+            <path d="M19 18C24 14 31 12 38 13" class="tool-accent" />
+          </svg>
+        </button>
+      </div>
+      <div class="style-group">
+        <label class="style-control">
+          <span>Line</span>
+          <select id="lineStyleSelect">
+            <option value="solid">Solid</option>
+            <option value="dashed">Dashed</option>
+            <option value="dotted">Dotted</option>
+          </select>
+        </label>
+        <label class="style-control">
+          <span>Color</span>
+          <input id="strokeColorInput" type="color" value="#ff3b30" />
+        </label>
+        <label class="style-control">
+          <span>Width</span>
+          <input id="strokeWidthInput" type="range" min="1" max="12" step="1" value="3" />
+        </label>
+        <label class="style-control">
+          <span>Arrow</span>
+          <select id="arrowModeSelect">
+            <option value="classic">Classic</option>
+            <option value="double">Double</option>
+            <option value="line">Line</option>
+          </select>
+        </label>
+      </div>
+      <div class="action-group">
+        <button id="undoBtn" title="Ctrl+Z" disabled>&#8630; Undo</button>
+        <button id="redoBtn" title="Ctrl+Y / Ctrl+Shift+Z" disabled>&#8631; Redo</button>
+        <button id="applyCropBtn" disabled>Apply Crop</button>
+        <button id="dragOutBtn" title="Drag image to another window">&#9998; Drag Out</button>
+        <button id="copyBtn">&#128203; Copy</button>
+        <button id="savePngBtn">Save PNG</button>
+        <button id="saveJpgBtn">Save JPG</button>
+      </div>
+    </header>
+
+    <main class="editor-main">
+      <div class="canvas-wrap">
+        <div class="canvas-stage">
+          <canvas id="editorCanvas"></canvas>
+          <a id="dragSurface" href="#" download="quickshot.png">
+            <img id="dragPreview" alt="" />
+          </a>
+        </div>
+      </div>
+      <aside class="sidebar">
+        <h2>QuickShot</h2>
+        <p>Ctrl+C copies current image.</p>
+        <p>Enter or Apply Crop confirms pending crop.</p>
+        <p id="statusText" class="status">Ready.</p>
+      </aside>
+    </main>
+
+    <script src="../clipboard/clipboard-engine.js"></script>
+    <script type="module" src="canvas-editor.js"></script>
+  </body>
+</html>

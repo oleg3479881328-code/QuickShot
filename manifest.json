@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "QuickShot",
+  "description": "Fast local-first area screenshot tool with instant clipboard copy and lightweight editor.",
+  "version": "1.1.0",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "clipboardWrite",
+    "commands",
+    "contextMenus",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "action": {
+    "default_title": "QuickShot",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png"
+    }
+  },
+  "options_page": "options/options.html",
+  "commands": {
+    "start-quickshot": {
+      "description": "Start area screenshot",
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      }
+    }
+  }
+}

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QuickShot Help</title>
+    <style>
+      :root {
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #475569;
+        --accent: #0f766e;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(145deg, #e2e8f0, #f8fafc);
+        color: var(--text);
+      }
+
+      main {
+        max-width: 860px;
+        margin: 28px auto;
+        padding: 22px;
+        background: var(--card);
+        border-radius: 14px;
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+      }
+
+      h1 {
+        margin: 0 0 8px;
+      }
+
+      h2 {
+        margin: 24px 0 8px;
+        color: var(--accent);
+      }
+
+      p,
+      li {
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      code {
+        background: #e2e8f0;
+        color: #0f172a;
+        border-radius: 6px;
+        padding: 2px 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>QuickShot Help</h1>
+      <p>Fast area screenshots with instant clipboard copy and a lightweight editor.</p>
+
+      <h2>Start Capture</h2>
+      <ul>
+        <li>Click the <code>QuickShot</code> toolbar icon.</li>
+        <li>Use the shortcut <code>Ctrl+Shift+S</code>.</li>
+        <li>Use the middle mouse button on the page.</li>
+        <li>Use the context menu item <code>Capture area with QuickShot</code>.</li>
+      </ul>
+
+      <h2>Select Area</h2>
+      <ul>
+        <li>Hold the left mouse button and drag across the page.</li>
+        <li>Release the mouse button to capture.</li>
+        <li>Press <code>Esc</code> to cancel.</li>
+      </ul>
+
+      <h2>Clipboard</h2>
+      <ul>
+        <li>QuickShot copies the image immediately after capture by default.</li>
+        <li>If copy fails, the editor still opens with the captured screenshot preserved.</li>
+        <li>In the editor, use <code>Copy</code> or <code>Ctrl+C</code> to retry.</li>
+        <li>Use <code>Clipboard only</code> mode in settings to skip opening the editor.</li>
+      </ul>
+
+      <h2>Editor</h2>
+      <ul>
+        <li>Tools: Arrow, Text, Blur, Crop, Rect, Ellipse.</li>
+        <li>Actions: Undo, Redo, Copy, Save PNG, Save JPG.</li>
+        <li><code>Drag Out</code> lets you drag the image into another window.</li>
+        <li>Line styles: Solid, Dashed, Dotted.</li>
+        <li>Choose color and width for arrows and shapes.</li>
+        <li>Arrow modes: Classic, Double, Line.</li>
+        <li>Confirm crop with <code>Enter</code> or <code>Apply Crop</code>.</li>
+        <li>Undo and redo shortcuts: <code>Ctrl+Z</code>, <code>Ctrl+Y</code>, <code>Ctrl+Shift+Z</code>.</li>
+      </ul>
+    </main>
+  </body>
+</html>

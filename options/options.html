@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QuickShot Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main>
+      <h1>QuickShot Settings</h1>
+      <form id="settingsForm">
+        <section class="settings-section">
+          <h2>Capture</h2>
+          <label class="checkbox-row">
+            <input type="checkbox" id="autoCopyOnCapture" />
+            <span>Auto-copy image to clipboard after capture</span>
+          </label>
+        </section>
+
+        <section class="settings-section">
+          <h2>Mode</h2>
+          <label>
+            Capture mode
+            <select id="captureMode">
+              <option value="full">Full mode: inline editor after capture</option>
+              <option value="clipboard_only">Clipboard only: capture and copy instantly</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="settings-section">
+          <h2>Export</h2>
+          <label>
+            Default save format
+            <select id="defaultSaveFormat">
+              <option value="png">PNG</option>
+              <option value="jpg">JPG</option>
+            </select>
+          </label>
+
+          <label>
+            JPG quality: <span id="jpgQualityValue"></span>
+            <input type="range" id="jpgQuality" min="0.5" max="1" step="0.05" />
+          </label>
+        </section>
+
+        <div class="actions">
+          <button type="submit">Save settings</button>
+        </div>
+      </form>
+      <p id="status"></p>
+    </main>
+
+    <script type="module" src="options.js"></script>
+  </body>
+</html>

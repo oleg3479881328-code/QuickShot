@@ -1,0 +1,485 @@
+.quickshot-no-select,
+.quickshot-no-select * {
+  user-select: none !important;
+}
+
+#quickshot-overlay-root.quickshot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  cursor: crosshair;
+  background: rgba(0, 0, 0, 0.34);
+  pointer-events: all;
+}
+
+#quickshot-overlay-root.quickshot-editor-overlay {
+  cursor: default;
+  background: rgba(0, 0, 0, 0.56);
+}
+
+#quickshot-overlay-root .quickshot-selection {
+  position: absolute;
+  border: 1px solid #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 0 0 99999px rgba(0, 0, 0, 0.48);
+  display: none;
+}
+
+#quickshot-overlay-root .quickshot-selection-label {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.88);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font: 500 12px/1.2 "Segoe UI", sans-serif;
+  letter-spacing: 0.2px;
+}
+
+#quickshot-overlay-root .quickshot-selection-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border: 1px solid #000000;
+}
+
+#quickshot-overlay-root .quickshot-selection-handle-nw {
+  top: -5px;
+  left: -5px;
+}
+
+#quickshot-overlay-root .quickshot-selection-handle-ne {
+  top: -5px;
+  right: -5px;
+}
+
+#quickshot-overlay-root .quickshot-selection-handle-sw {
+  bottom: -5px;
+  left: -5px;
+}
+
+#quickshot-overlay-root .quickshot-selection-handle-se {
+  right: -5px;
+  bottom: -5px;
+}
+
+#quickshot-overlay-root .quickshot-hint {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.88);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font: 500 12px/1.3 "Segoe UI", sans-serif;
+  letter-spacing: 0.2px;
+}
+
+#quickshot-overlay-root .quickshot-editor-stage,
+#quickshot-overlay-root .quickshot-bottom-dock,
+#quickshot-overlay-root .quickshot-settings-panel,
+#quickshot-overlay-root .quickshot-export-panel,
+#quickshot-overlay-root .quickshot-editor-status {
+  position: fixed;
+}
+
+#quickshot-overlay-root .quickshot-bottom-dock {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  z-index: 3;
+}
+
+#quickshot-overlay-root .quickshot-editor-stage {
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  background: #ffffff;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+#quickshot-overlay-root .quickshot-editor-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  cursor: crosshair;
+}
+
+#quickshot-overlay-root .quickshot-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(16, 16, 16, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.36);
+}
+
+#quickshot-overlay-root .quickshot-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#quickshot-overlay-root .quickshot-toolbar-group-actions {
+  padding-left: 10px;
+  margin-left: 4px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#quickshot-overlay-root .quickshot-tool-button,
+#quickshot-overlay-root .quickshot-action-button,
+#quickshot-overlay-root .quickshot-export-option {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #f3f4f6;
+  cursor: pointer;
+  font: 600 12px/1 "Segoe UI", sans-serif;
+}
+
+#quickshot-overlay-root .quickshot-tool-button,
+#quickshot-overlay-root .quickshot-action-button {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#quickshot-overlay-root .quickshot-tool-button:hover,
+#quickshot-overlay-root .quickshot-action-button:hover,
+#quickshot-overlay-root .quickshot-export-option:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#quickshot-overlay-root .quickshot-tool-button.is-active {
+  background: #ffffff;
+  color: #111111;
+}
+
+#quickshot-overlay-root .quickshot-tool-button:disabled,
+#quickshot-overlay-root .quickshot-action-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#quickshot-overlay-root .quickshot-tool-button svg,
+#quickshot-overlay-root .quickshot-action-button svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#quickshot-overlay-root .quickshot-tool-button[data-tool='blur'] svg rect {
+  fill: currentColor;
+  stroke: none;
+}
+
+#quickshot-overlay-root .quickshot-settings-panel,
+#quickshot-overlay-root .quickshot-export-panel,
+#quickshot-overlay-root .quickshot-editor-status {
+  background: rgba(16, 16, 16, 0.96);
+  color: #f3f4f6;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+#quickshot-overlay-root .quickshot-settings-panel,
+#quickshot-overlay-root .quickshot-export-panel {
+  border-radius: 14px;
+  padding: 10px;
+}
+
+#quickshot-overlay-root .quickshot-settings-panel {
+  min-width: 280px;
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  max-width: 440px;
+}
+
+#quickshot-overlay-root .quickshot-setting-field {
+  display: grid;
+  gap: 6px;
+  font: 500 11px/1.2 "Segoe UI", sans-serif;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+#quickshot-overlay-root .quickshot-color-swatches {
+  display: grid;
+  grid-template-columns: repeat(5, 18px);
+  gap: 8px;
+}
+
+#quickshot-overlay-root .quickshot-option-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#quickshot-overlay-root .quickshot-width-chips {
+  gap: 8px;
+}
+
+#quickshot-overlay-root .quickshot-line-style-chips {
+  gap: 8px;
+  justify-content: center;
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-chips {
+  gap: 8px;
+  justify-content: center;
+}
+
+#quickshot-overlay-root .quickshot-color-swatch {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: var(--swatch-color);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+
+#quickshot-overlay-root .quickshot-color-swatch.is-active {
+  outline: 2px solid #ffffff;
+  outline-offset: 1px;
+}
+
+#quickshot-overlay-root .quickshot-option-chip {
+  min-width: 36px;
+  padding: 6px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f3f4f6;
+}
+
+#quickshot-overlay-root .quickshot-option-chip.is-active {
+  background: #ffffff;
+  color: #111111;
+  border-color: #ffffff;
+}
+
+#quickshot-overlay-root .quickshot-width-chip {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--chip-color, #ffffff);
+}
+
+#quickshot-overlay-root .quickshot-width-chip.is-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#quickshot-overlay-root .quickshot-width-dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 999px;
+  background: currentColor;
+}
+
+#quickshot-overlay-root .quickshot-line-style-chip {
+  width: 76px;
+  height: 36px;
+  padding: 0;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--chip-color, #ffffff);
+  --sample-line-width: 5px;
+  --sample-dot-size: 8px;
+  --sample-width: 52px;
+  --sample-dash-length: 10px;
+  --sample-dash-gap: 4px;
+  --sample-dot-gap: 10px;
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-chip {
+  width: 76px;
+  height: 36px;
+  padding: 0;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--chip-color, #ffffff);
+}
+
+#quickshot-overlay-root .quickshot-line-style-chip.is-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-chip.is-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+#quickshot-overlay-root .quickshot-line-style-sample {
+  display: block;
+  width: var(--sample-width);
+  height: 12px;
+  position: relative;
+  background: transparent;
+  border: 0;
+  margin: 0 auto;
+}
+
+#quickshot-overlay-root .quickshot-line-style-sample::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: var(--sample-line-width);
+  border-radius: 999px;
+  background: currentColor;
+}
+
+#quickshot-overlay-root .quickshot-line-style-sample-dashed::before {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      currentColor 0 var(--sample-dash-length),
+      transparent var(--sample-dash-length) calc(var(--sample-dash-length) + var(--sample-dash-gap))
+    );
+}
+
+#quickshot-overlay-root .quickshot-line-style-sample-dotted::before {
+  height: var(--sample-dot-size);
+  border-radius: 0;
+  background:
+    radial-gradient(circle, currentColor 0 calc(var(--sample-dot-size) / 2 - 1px), transparent calc(var(--sample-dot-size) / 2)) left center / var(--sample-dot-gap) var(--sample-dot-size) repeat-x;
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-sample {
+  position: relative;
+  display: block;
+  width: 42px;
+  height: 16px;
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-sample::before,
+#quickshot-overlay-root .quickshot-arrow-mode-sample::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-sample::before {
+  left: 4px;
+  width: 28px;
+  height: 3px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-sample::after {
+  right: 4px;
+  width: 8px;
+  height: 8px;
+  border-top: 3px solid currentColor;
+  border-right: 3px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-sample-double::before {
+  left: 7px;
+  width: 28px;
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-sample-double::after {
+  right: 4px;
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-sample-double {
+  background:
+    linear-gradient(45deg, transparent 43%, currentColor 44% 56%, transparent 57%) left 2px center / 8px 8px no-repeat;
+}
+
+#quickshot-overlay-root .quickshot-arrow-mode-sample-line::after {
+  display: none;
+}
+
+#quickshot-overlay-root .quickshot-setting-field input,
+#quickshot-overlay-root .quickshot-setting-field select {
+  width: 100%;
+}
+
+#quickshot-overlay-root .quickshot-setting-field select,
+#quickshot-overlay-root .quickshot-setting-field input[type='range'],
+#quickshot-overlay-root .quickshot-setting-field input[type='color'] {
+  accent-color: #ffffff;
+}
+
+#quickshot-overlay-root .quickshot-export-panel {
+  display: grid;
+  gap: 6px;
+  min-width: 128px;
+}
+
+#quickshot-overlay-root .quickshot-export-option {
+  padding: 10px 12px;
+  text-align: left;
+}
+
+#quickshot-overlay-root .quickshot-editor-status {
+  border-radius: 999px;
+  padding: 10px 12px;
+  font: 500 12px/1.3 "Segoe UI", sans-serif;
+  text-align: center;
+  z-index: 4;
+}
+
+#quickshot-overlay-root .quickshot-editor-status[data-level='error'] {
+  color: #fecaca;
+}
+
+.quickshot-toast {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 2147483647;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: 600 12px/1.3 "Segoe UI", sans-serif;
+  color: #ffffff;
+  background: #1f2937;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.quickshot-toast-success {
+  background: #14532d;
+}
+
+.quickshot-toast-error {
+  background: #7f1d1d;
+}
+
+.quickshot-toast-hide {
+  opacity: 0;
+}
