@@ -7,7 +7,7 @@ Validate the version 1.2.0 migration from the inline page editor to Chrome's Sid
 ## Environment Record
 
 - Operating system:
-- Chrome version (must be 114 or newer):
+- Chrome version (must be 116 or newer):
 - Display scaling:
 - Browser zoom:
 - Test date:
