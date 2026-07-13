@@ -9,7 +9,7 @@ Keep the current QuickShot behavior but move the main editor functions into Chro
 ### Implementation
 
 - Added Manifest V3 Side Panel configuration and `sidePanel` permission.
-- Updated version from `1.1.0` to `1.2.0` and set Chrome 114 as the minimum version.
+- Updated version from `1.1.0` to `1.2.0` and set Chrome 116 as the minimum version because programmatic `sidePanel.open()` starts there.
 - Added a persistent Side Panel with capture controls, editor canvas, all annotation tools, undo/redo, clipboard copy, PNG/JPG export, and capture settings.
 - Changed toolbar, keyboard, and context-menu launches to open the Side Panel before starting selection.
 - Removed the inline page editor from `content/overlay-ui.js`; the content script now handles only selection, clipboard bridging, and toasts.
