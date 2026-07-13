@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QuickShot</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <img src="../assets/icons/icon32.png" alt="" width="28" height="28" />
+          <div>
+            <h1>QuickShot</h1>
+            <p>Capture and edit</p>
+          </div>
+        </div>
+        <button id="openOptionsButton" class="icon-button" type="button" title="Settings" aria-label="Open settings">⚙</button>
+      </header>
+
+      <section class="primary-actions" aria-label="Capture controls">
+        <button id="captureButton" class="primary-button" type="button">Capture area</button>
+      </section>
+
+      <details class="panel-settings">
+        <summary>Capture settings</summary>
+        <div class="panel-settings-grid">
+          <label>
+            <span>Mode</span>
+            <select id="captureModeSelect">
+              <option value="full">Full editor</option>
+              <option value="clipboard_only">Clipboard only</option>
+            </select>
+          </label>
+          <label class="checkbox-setting">
+            <input id="autoCopyCheckbox" type="checkbox" />
+            <span>Auto-copy after capture</span>
+          </label>
+          <label>
+            <span>Default format</span>
+            <select id="defaultFormatSelect">
+              <option value="png">PNG</option>
+              <option value="jpg">JPG</option>
+            </select>
+          </label>
+          <label>
+            <span>JPG quality <output id="jpgQualityValue"></output></span>
+            <input id="jpgQualityInput" type="range" min="0.5" max="1" step="0.05" />
+          </label>
+        </div>
+      </details>
+
+      <p id="status" class="status" role="status" aria-live="polite">Ready.</p>
+
+      <section id="emptyState" class="empty-state">
+        <div class="empty-icon">✂</div>
+        <h2>No capture yet</h2>
+        <p>Select an area on the current page. The result will appear here automatically.</p>
+      </section>
+
+      <section id="captureView" class="capture-view" hidden>
+        <div class="capture-meta">
+          <span id="captureDimensions"></span>
+          <span id="captureTime"></span>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="editorCanvas" aria-label="QuickShot editor canvas"></canvas>
+        </div>
+
+        <div id="clipboardOnlyNotice" class="mode-notice" hidden>
+          Clipboard-only mode is active. The capture is available here, but editing tools are hidden.
+        </div>
+
+        <div id="editorControls" class="editor-controls">
+          <div class="tool-grid" role="toolbar" aria-label="Editing tools">
+            <button type="button" data-tool="arrow" title="Arrow">Arrow</button>
+            <button type="button" data-tool="text" title="Text">Text</button>
+            <button type="button" data-tool="blur" title="Blur">Blur</button>
+            <button type="button" data-tool="rect" title="Rectangle">Rectangle</button>
+            <button type="button" data-tool="ellipse" title="Ellipse">Ellipse</button>
+            <button type="button" data-tool="crop" title="Crop">Crop</button>
+          </div>
+
+          <section id="toolSettings" class="tool-settings" aria-label="Tool settings"></section>
+
+          <div class="action-grid" role="toolbar" aria-label="Image actions">
+            <button id="undoButton" type="button">Undo</button>
+            <button id="redoButton" type="button">Redo</button>
+            <button id="copyButton" type="button">Copy</button>
+            <button id="savePngButton" type="button">Save PNG</button>
+            <button id="saveJpgButton" type="button">Save JPG</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="../clipboard/clipboard-engine.js"></script>
+    <script type="module" src="sidepanel.js"></script>
+  </body>
+</html>
