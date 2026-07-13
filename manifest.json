@@ -3,7 +3,7 @@
   "name": "QuickShot",
   "description": "Fast local-first area screenshot tool with instant clipboard copy and a side panel editor.",
   "version": "1.2.0",
-  "minimum_chrome_version": "114",
+  "minimum_chrome_version": "116",
   "permissions": [
     "activeTab",
     "scripting",
