@@ -20,21 +20,21 @@ chrome.runtime.onInstalled.addListener(async () => {
 });
 
 chrome.action.onClicked.addListener(async (tab) => {
-  await startCaptureFlow({ source: 'action', tab });
+  await startCaptureFromUserGesture({ source: 'action', tab });
 });
 
 chrome.commands.onCommand.addListener(async (command) => {
   if (command !== 'start-quickshot') {
     return;
   }
-  await startCaptureFlow({ source: 'command' });
+  await startCaptureFromUserGesture({ source: 'command' });
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   if (info.menuItemId !== MENU_ID) {
     return;
   }
-  await startCaptureFlow({ source: 'context-menu', tab });
+  await startCaptureFromUserGesture({ source: 'context-menu', tab });
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -43,7 +43,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === 'QUICKSHOT_START_CAPTURE') {
-    startCaptureFlow({ source: message.source || 'popup', tab: sender.tab })
+    startCaptureFlow({ source: message.source || 'sidepanel', tab: sender.tab })
       .then(() => sendResponse({ ok: true }))
       .catch((error) => sendResponse({ ok: false, error: error.message }));
     return true;
@@ -57,11 +57,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 
   if (message.type === 'QUICKSHOT_SELECTION_CANCELLED') {
+    notifyExtensionContexts({ type: 'QUICKSHOT_CAPTURE_CANCELLED' });
     sendTabToast(sender.tab?.id, 'Capture cancelled', 'info').catch(() => {});
     sendResponse({ ok: true });
     return;
   }
 });
+
+async function startCaptureFromUserGesture({ source, tab } = {}) {
+  const targetTab = tab || await getActiveTab();
+  await openSidePanel(targetTab).catch(() => {});
+  await startCaptureFlow({ source, tab: targetTab });
+}
+
+async function openSidePanel(tab) {
+  if (!chrome.sidePanel?.open || typeof tab?.windowId !== 'number') {
+    return;
+  }
+  await chrome.sidePanel.open({ windowId: tab.windowId });
+}
 
 async function startCaptureFlow({ source, tab } = {}) {
   const targetTab = tab || await getActiveTab();
@@ -71,6 +85,7 @@ async function startCaptureFlow({ source, tab } = {}) {
 
   if (!canCaptureTab(targetTab)) {
     const error = new Error('QuickShot is unavailable on this page.');
+    notifyExtensionContexts({ type: 'QUICKSHOT_CAPTURE_FAILED', error: error.message });
     await reportStartFailure(targetTab.id, error);
     throw error;
   }
@@ -94,7 +109,10 @@ async function startCaptureFlow({ source, tab } = {}) {
       type: 'QUICKSHOT_START_SELECTION',
       source
     });
+
+    notifyExtensionContexts({ type: 'QUICKSHOT_CAPTURE_STARTED' });
   } catch (error) {
+    notifyExtensionContexts({ type: 'QUICKSHOT_CAPTURE_FAILED', error: error.message });
     await reportStartFailure(targetTab.id, error);
     throw error;
   }
@@ -124,44 +142,36 @@ async function handleSelectionDone(message, sender) {
       settings
     });
 
-    await chrome.storage.local.set({
-      [LAST_CAPTURE_KEY]: {
-        id: crypto.randomUUID(),
-        createdAt: Date.now(),
-        dataUrl: result.dataUrl,
-        width: result.width,
-        height: result.height,
-        clipboardResult: result.clipboardResult
-      }
-    });
+    const capture = {
+      id: crypto.randomUUID(),
+      createdAt: Date.now(),
+      dataUrl: result.dataUrl,
+      width: result.width,
+      height: result.height,
+      selection,
+      captureMode: settings.captureMode,
+      clipboardResult: result.clipboardResult
+    };
 
-    const shouldOpenEditor = settings.captureMode !== 'clipboard_only';
-    if (shouldOpenEditor) {
-      await openInlineEditor(tabId, {
-        dataUrl: result.dataUrl,
-        width: result.width,
-        height: result.height,
-        selection,
-        clipboardResult: result.clipboardResult
-      });
-    }
+    await chrome.storage.local.set({ [LAST_CAPTURE_KEY]: capture });
+    notifyExtensionContexts({ type: 'QUICKSHOT_CAPTURE_READY', captureId: capture.id });
 
     if (result.clipboardResult?.ok) {
       await sendTabToast(tabId, 'Image copied to clipboard.', 'success');
     } else if (settings.autoCopyOnCapture) {
-      await sendTabToast(tabId, 'Clipboard copy failed. Open editor to copy again.', 'error');
+      await sendTabToast(tabId, 'Clipboard copy failed. Use Copy in the side panel.', 'error');
+    } else {
+      await sendTabToast(tabId, 'Capture ready in the side panel.', 'success');
     }
   } catch (error) {
+    notifyExtensionContexts({ type: 'QUICKSHOT_CAPTURE_FAILED', error: error.message });
     await sendTabToast(tabId, `Capture failed: ${error.message}`, 'error');
     throw error;
   }
 }
 
-async function openInlineEditor(tabId, capture) {
-  await chrome.tabs.sendMessage(tabId, {
-    type: 'QUICKSHOT_OPEN_EDITOR',
-    capture
-  });
+function notifyExtensionContexts(message) {
+  chrome.runtime.sendMessage(message).catch(() => {});
 }
 
 async function reportStartFailure(tabId, error) {
@@ -186,7 +196,7 @@ async function sendTabToast(tabId, text, level = 'info') {
       level
     });
   } catch (_error) {
-    // ignore if content script is unavailable
+    // Ignore if the content script is unavailable.
   }
 }
 
