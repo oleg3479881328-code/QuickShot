@@ -19,13 +19,14 @@ The GitHub repository is the durable source of truth:
 ## 4. Source Trail
 
 - Repository root and commit history in this GitHub repository.
+- Active implementation review: `https://github.com/oleg3479881328-code/QuickShot/pull/1`.
 - Product documentation: `README.md` and `docs/README.md`.
 - Project execution standard: `https://github.com/oleg3479881328-code/Project-Execution-OS`.
 
 ## 5. Current Status
 
-- **Mode:** Execution and review.
-- **Phase:** Side Panel editor migration implemented on `feature/side-panel-editor`.
+- **Mode:** Review and manual validation.
+- **Phase:** Side Panel editor migration is open as draft PR #1.
 - **Health:** Static validation passed; manual Chrome runtime testing is still required.
 
 ## 6. Done So Far
@@ -33,6 +34,7 @@ The GitHub repository is the durable source of truth:
 - Area selection, high-DPI crop, clipboard copy, keyboard shortcut, toolbar action, and context-menu launch exist.
 - Annotation tools include arrow, text, blur, rectangle, ellipse, crop, undo/redo, copy, and PNG/JPG export.
 - Side Panel editor implementation added for version `1.2.0`.
+- Draft PR #1 opened from `feature/side-panel-editor` into `master`.
 
 ## 7. Current Focus
 
@@ -40,7 +42,7 @@ Validate that the Side Panel opens before selection and that every editor tool w
 
 ## 8. Next Practical Step
 
-Load the feature branch as an unpacked extension in Chrome, run `docs/SIDE_PANEL_TEST_PLAN.md`, fix any runtime defects, and merge the pull request after review.
+Load draft PR #1 as an unpacked extension in Chrome 116+, run `docs/SIDE_PANEL_TEST_PLAN.md`, fix any runtime defects, and merge only after the test plan passes.
 
 ## 9. Key Decisions And Constraints
 
@@ -53,6 +55,7 @@ Load the feature branch as an unpacked extension in Chrome, run `docs/SIDE_PANEL
 
 ## 10. Read Next
 
+- Draft PR #1: `https://github.com/oleg3479881328-code/QuickShot/pull/1`
 - `README.md`
 - `docs/README.md`
 - `docs/SIDE_PANEL_TEST_PLAN.md`
