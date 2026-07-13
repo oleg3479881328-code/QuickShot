@@ -15,6 +15,7 @@ Keep the current QuickShot behavior but move the main editor functions into Chro
 - Removed the inline page editor from `content/overlay-ui.js`; the content script now handles only selection, clipboard bridging, and toasts.
 - Preserved the existing crop and automatic clipboard pipeline.
 - Added Side Panel-specific manual tests and updated project documentation.
+- Opened draft PR #1: `https://github.com/oleg3479881328-code/QuickShot/pull/1`.
 
 ### Validation
 
@@ -23,6 +24,7 @@ Keep the current QuickShot behavior but move the main editor functions into Chro
   - `background/service-worker.js`
   - `content/overlay-ui.js`
   - `sidepanel/sidepanel.js`
+- Uploaded Git blob hashes match the locally validated candidate files.
 - Chrome runtime and visual testing could not be executed in the current environment and remains required before merge.
 
 ### Execution Environment Error
